@@ -1,0 +1,1 @@
+/usr/bin/c++ -rdynamic CMakeFiles/V4L2-apps.dir/src/v4l2compress.cpp.o -o V4L2-apps  v4l2wrapper/libv4l2wrapper.a -ljpeg libyuv/libyuv.a -lx264 -lx265 -lvpx -lm 
