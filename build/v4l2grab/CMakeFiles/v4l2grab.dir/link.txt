@@ -1,1 +1,0 @@
-/usr/bin/cc CMakeFiles/v4l2grab.dir/yuv.c.o CMakeFiles/v4l2grab.dir/v4l2grab.c.o -o v4l2grab 
