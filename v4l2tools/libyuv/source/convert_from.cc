@@ -229,6 +229,7 @@ int I420ToYUY2(const uint8* src_y, int src_stride_y,
   }
 #endif
 #if defined(HAS_I422TOYUY2ROW_NEON)
+
   if (TestCpuFlag(kCpuHasNEON)) {
     I422ToYUY2Row = I422ToYUY2Row_Any_NEON;
     if (IS_ALIGNED(width, 16)) {

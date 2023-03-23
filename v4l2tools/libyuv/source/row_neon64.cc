@@ -1269,31 +1269,27 @@ void ARGBShuffleRow_NEON(const uint8* src_argb, uint8* dst_argb,
 #endif  // HAS_ARGBSHUFFLEROW_NEON
 
 #ifdef HAS_I422TOYUY2ROW_NEON
-void I422ToYUY2Row_NEON(const uint8* src_y,
-                        const uint8* src_u,
-                        const uint8* src_v,
-                        uint8* dst_yuy2, int width) {
-  asm volatile (
-  "1:                                          \n"
-    MEMACCESS(0)
-    "ld2        {v0.8b, v1.8b}, [%0], #16      \n"  // load 16 Ys
-    "orr        v2.8b, v1.8b, v1.8b            \n"
-    MEMACCESS(1)
-    "ld1        {v1.8b}, [%1], #8              \n"  // load 8 Us
-    MEMACCESS(2)
-    "ld1        {v3.8b}, [%2], #8              \n"  // load 8 Vs
-    "subs       %4, %4, #16                    \n"  // 16 pixels
-    MEMACCESS(3)
-    "st4        {v0.8b,v1.8b,v2.8b,v3.8b}, [%3], #32 \n"  // Store 16 pixels.
-    "b.gt       1b                             \n"
-  : "+r"(src_y),     // %0
-    "+r"(src_u),     // %1
-    "+r"(src_v),     // %2
-    "+r"(dst_yuy2),  // %3
-    "+r"(width)      // %4
-  :
-  : "cc", "memory", "v0", "v1", "v2", "v3"
-  );
+void I422ToYUY2Row_NEON(const uint8 *src_y, const uint8 *src_u,
+			const uint8 *src_v, uint8 *dst_yuy2, int width)
+{
+	asm volatile(
+		"1:                                          \n" MEMACCESS(
+			0) "ld2        {v0.8b, v1.8b}, [%0], #16      \n" // load 16 Ys
+			   "orr        v2.8b, v1.8b, v1.8b            \n" MEMACCESS(
+				   1) "ld1        {v1.8b}, [%1], #8              \n" // load 8 Us
+		MEMACCESS(
+			2) "ld1        {v3.8b}, [%2], #8              \n" // load 8 Vs
+			   "subs       %4, %4, #16                    \n" // 16 pixels
+		MEMACCESS(
+			3) "st4        {v0.8b,v1.8b,v2.8b,v3.8b}, [%3], #32 \n" // Store 16 pixels.
+			   "b.gt       1b                             \n"
+		: "+r"(src_y), // %0
+		  "+r"(src_u), // %1
+		  "+r"(src_v), // %2
+		  "+r"(dst_yuy2), // %3
+		  "+r"(width) // %4
+		:
+		: "cc", "memory", "v0", "v1", "v2", "v3");
 }
 #endif  // HAS_I422TOYUY2ROW_NEON
 
